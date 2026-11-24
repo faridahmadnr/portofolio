@@ -6,9 +6,9 @@ export const Footer: React.FC = () => {
 
   return (
     <footer className="border-t border-neutral-900 py-8 bg-neutral-950/60">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500 text-center sm:text-left">
         <p>© {currentYear} {portfolioData.personal.name}. All rights reserved.</p>
-        <p className="flex items-center gap-1.5">
+        <p className="flex items-center justify-center sm:justify-start gap-1.5">
           Built with React, Vite & Tailwind CSS
         </p>
       </div>

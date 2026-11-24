@@ -1,10 +1,23 @@
+export interface DemoCredential {
+  role: string;
+  email: string;
+  pass: string;
+}
+
 export interface Project {
   id: string;
   title: string;
+  subtitle?: string;
+  role?: string;
+  teamSize?: string;
   description: string;
+  longDescription?: string;
+  keyContributions?: string[];
+  demoCredentials?: DemoCredential[];
   tech: string[];
   liveUrl?: string;
   githubUrl?: string;
+  deckUrl?: string;
   iconName?: string;
 }
 
@@ -46,19 +59,32 @@ export const portfolioData: PortfolioData = {
   personal: {
     name: "Farid Ahmad",
     role: "Full Stack Developer",
-    headline: "Passionate about creating innovative web solutions and turning ideas into reality. Specialized in modern JavaScript frameworks, backend development, and scalable systems.",
-    about: "I'm a dedicated Full Stack Developer with a passion for creating efficient, scalable, and user-friendly applications. With expertise in both frontend and backend technologies, I bring ideas to life through clean code, robust architecture, and innovative solutions.",
-    email: "asv.developer@email.com",
-    phone: "+62 123 456 7890",
-    location: "Jakarta, Indonesia",
+    headline:
+      "Passionate about creating innovative web solutions and turning ideas into reality. Specialized in modern JavaScript frameworks, backend development, and scalable systems.",
+    about:
+      "I'm a dedicated Full Stack Developer with a passion for creating efficient, scalable, and user-friendly applications. With expertise in both frontend and backend technologies, I bring ideas to life through clean code, robust architecture, and innovative solutions.",
+    email: "faridahmadnr@gmail.com",
+    phone: "+62 895-6404-80900",
+    location: "Yogyakarta, Indonesia",
     cvUrl: "/cv.pdf",
     avatarUrl: "/images/profile.jpg",
   },
   socialLinks: [
-    { platform: "GitHub", url: "https://github.com", icon: "github" },
-    { platform: "LinkedIn", url: "https://linkedin.com", icon: "linkedin" },
-    { platform: "Twitter", url: "https://twitter.com", icon: "twitter" },
-    { platform: "Instagram", url: "https://instagram.com", icon: "instagram" },
+    {
+      platform: "GitHub",
+      url: "https://github.com/faridahmadnr",
+      icon: "github",
+    },
+    {
+      platform: "LinkedIn",
+      url: "https://www.linkedin.com/in/farid-ahmad-492296322/",
+      icon: "linkedin",
+    },
+    {
+      platform: "Instagram",
+      url: "https://www.instagram.com/faadnrr",
+      icon: "instagram",
+    },
   ],
   skills: [
     {
@@ -91,34 +117,83 @@ export const portfolioData: PortfolioData = {
   ],
   projects: [
     {
-      id: "gps-art-creator",
-      title: "GPS Art Creator (GPXShare)",
-      description: "Interactive web application for creating GPS art routes with automatic shape generation and GPX export functionality.",
-      tech: ["JavaScript", "Leaflet.js", "HTML5", "GPX"],
-      liveUrl: "#",
-      githubUrl: "#",
-    },
-    {
       id: "smartfarm-iot",
       title: "SmartFarm IoT & Telemetry Platform",
-      description: "Full-stack IoT and AI-driven smart farming monitoring system with automated telemetry, multi-tenant kandang isolation, and forecasting.",
-      tech: ["FastAPI", "React", "PostgreSQL", "Machine Learning", "IoT"],
+      subtitle: "Proyek PMLD — IoT Monitoring",
+      role: "Backend Developer",
+      teamSize: "4 Anggota Tim (1 BE, 1 FE, 1 IoT Dev, 1 UI/UX)",
+      description: "Platform monitoring peternakan pintar berbasis IoT dengan arsitektur backend FastAPI yang menangani telemetri sensor kandang (suhu & kelembapan) secara real-time dan dashboard multi-role.",
+      longDescription: "Proyek praktikum PMLD yang bertujuan membantu peternak memantau kondisi kandang secara real-time melalui integrasi sensor IoT ke dashboard analitik. Sistem ini memiliki arsitektur multi-role untuk memisahkan hak akses antara Administrator, Pemilik Usaha, dan Peternak di lapangan.",
+      keyContributions: [
+        "Merancang dan mengimplementasikan RESTful API serta WebSocket pipeline telemetri sensor menggunakan FastAPI.",
+        "Membangun skema database relasional PostgreSQL untuk penyimpanan data time-series sensor kandang.",
+        "Menerapkan Role-Based Access Control (RBAC) aman untuk 3 role pengguna (Admin, Pemilik, Peternak).",
+        "Menyusun simulator pengiriman data sensor (mock telemetry) untuk kemudahan live demo tanpa ketergantungan hardware fisik.",
+        "Mendokumentasikan seluruh endpoint menggunakan OpenAPI/Swagger untuk kolaborasi mulus dengan tim frontend.",
+      ],
+      demoCredentials: [
+        { role: "Administrator", email: "admin@smartfarm.demo", pass: "admin123" },
+        { role: "Pemilik Usaha", email: "owner@smartfarm.demo", pass: "owner123" },
+        { role: "Peternak Lapangan", email: "farmer@smartfarm.demo", pass: "farmer123" },
+      ],
+      tech: ["FastAPI", "Python", "PostgreSQL", "IoT Telemetry", "React", "Tailwind CSS"],
       liveUrl: "#",
       githubUrl: "#",
     },
     {
-      id: "e-commerce-platform",
-      title: "E-Commerce Platform",
-      description: "Full-stack e-commerce solution with payment integration, inventory management, and an administrative dashboard.",
-      tech: ["React", "Node.js", "PostgreSQL", "Tailwind CSS"],
+      id: "pad2-telemetry-dashboard",
+      title: "Web Telemetry & Event Analytics Dashboard",
+      subtitle: "Proyek PAD 2 — Analytics Dashboard",
+      role: "Project Manager & System Analyst",
+      teamSize: "4 Anggota Tim (1 PM, 1 UI/UX, 1 FE, 1 BE)",
+      description: "Dashboard analitik interaktif kelanjutan dari PAD 1 untuk memvisualisasikan data telemetri dan interaksi pengguna yang terekam oleh script tracker secara real-time.",
+      longDescription: "Pada PAD 2, kami mengembangkan antarmuka visual berupa dashboard monitoring komprehensif. Sebagai PM, saya mengarahkan seluruh siklus pengembangan mulai dari penentuan requirement visualisasi data, perancangan alur data, pembagian modul frontend & backend, hingga pengujian dan presentasi akhir.",
+      keyContributions: [
+        "Memimpin koordinasi tim 4 orang dengan metodologi Agile/Scrum dan sprint mingguan via Trello.",
+        "Menyusun Product Requirement Document (PRD) dan user flow navigasi dashboard.",
+        "Merancang kontrak API bersama Backend dan Frontend untuk visualisasi grafik metrik.",
+        "Mengelola timeline dan memastikan seluruh fitur selesai 100% tepat waktu sebelum sesi evaluasi dosen.",
+      ],
+      demoCredentials: [
+        { role: "Viewer / Demo Account", email: "demo@telemetry.io", pass: "demopass123" },
+      ],
+      tech: ["React", "Chart.js", "REST API", "PostgreSQL", "Tailwind CSS", "Scrum"],
       liveUrl: "#",
       githubUrl: "#",
+      deckUrl: "#",
     },
     {
-      id: "analytics-dashboard",
-      title: "Analytics & Telemetry Dashboard",
-      description: "Real-time data visualization dashboard with interactive charts and customizable widgets for business intelligence.",
-      tech: ["React", "Vite", "Chart.js", "Tailwind CSS"],
+      id: "pad1-web-tracker",
+      title: "Lightweight Web Event & Telemetry Tracker",
+      subtitle: "Proyek PAD 1 — Data Ingestion & Tracking",
+      role: "Project Manager & System Analyst",
+      teamSize: "4 Anggota Tim (1 PM, 1 UI/UX, 1 FE, 1 BE)",
+      description: "Script pelacak event ringan yang dapat diinjeksikan ke website eksternal untuk merekam aktivitas pengguna langsung ke database.",
+      longDescription: "Fondasi dari ekosistem analitik PAD. Proyek ini berfokus pada mekanisme injection script pelacak (mirip Google Analytics mini) yang ditanam pada website yang sudah berjalan untuk mencatat log interaksi (click, pageview, session duration) langsung ke basis data terpusat.",
+      keyContributions: [
+        "Memetakan arsitektur sistem pengumpulan data (Data Ingestion) dari website klien ke database.",
+        "Menentukan scoping fungsionalitas tracker agar tidak membebani performa website target.",
+        "Mengorkestrasi pembagian tugas riset script injection dan struktur tabel log database.",
+        "Mempresentasikan hasil uji coba tracking dan verifikasi integritas data log kepada dosen penguji.",
+      ],
+      tech: ["JavaScript", "Event Tracking", "MySQL/PostgreSQL", "System Architecture", "Trello"],
+      githubUrl: "#",
+      deckUrl: "#",
+    },
+    {
+      id: "gps-art-creator",
+      title: "GPS Art Creator (GPXShare)",
+      subtitle: "Personal Full-Stack Project",
+      role: "Full Stack Developer",
+      teamSize: "Proyek Mandiri",
+      description: "Aplikasi web interaktif untuk membuat rute seni GPS (GPS Art) dengan generator bentuk otomatis dan ekspor file GPX.",
+      longDescription: "Proyek web mandiri yang memungkinkan pelari dan pesepeda menggambar bentuk tertentu di atas peta interaktif untuk kemudian diekspor ke format file GPX dan diunggah ke smartwatch atau aplikasi Strava.",
+      keyContributions: [
+        "Mengintegrasikan peta interaktif menggunakan Leaflet.js dan OpenStreetMap.",
+        "Mengimplementasikan algoritma konversi titik koordinat (Waypoints) ke format standar GPX XML.",
+        "Mendesain UI/UX yang responsif dan intuitif untuk desktop maupun mobile.",
+      ],
+      tech: ["JavaScript", "Leaflet.js", "HTML5", "GPX XML", "Tailwind CSS"],
       liveUrl: "#",
       githubUrl: "#",
     },

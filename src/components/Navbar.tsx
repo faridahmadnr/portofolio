@@ -55,13 +55,13 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Nav Dropdown */}
       {isOpen && (
-        <div className="md:hidden border-b border-neutral-800 bg-background/95 px-4 pt-2 pb-4 space-y-1">
+        <div className="md:hidden border-b border-neutral-800 bg-background/95 backdrop-blur-md px-4 pt-2 pb-4 space-y-1 max-h-[calc(100vh-4rem)] overflow-y-auto">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
               onClick={() => setIsOpen(false)}
-              className="block px-3 py-2 rounded-md text-base font-medium text-neutral-300 hover:text-white hover:bg-neutral-800"
+              className="block px-3 py-2.5 rounded-md text-base font-medium text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors"
             >
               {link.name}
             </a>
@@ -71,7 +71,7 @@ export const Navbar: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => setIsOpen(false)}
-            className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-neutral-800"
+            className="block px-3 py-2.5 rounded-md text-base font-medium text-white hover:bg-neutral-800 transition-colors"
           >
             Download CV
           </a>
