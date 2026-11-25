@@ -1,11 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { ExternalLink, FolderGit2, X, Users, CheckCircle2, Key, FileText, ChevronRight, Layers } from 'lucide-react';
+import {
+  ExternalLink,
+  FolderGit2,
+  X,
+  Users,
+  CheckCircle2,
+  Key,
+  FileText,
+  ChevronRight,
+  ChevronDown,
+  ChevronUp,
+  Layers,
+} from 'lucide-react';
 import { GithubIcon } from './Icons';
 import { portfolioData, Project } from '../data/portfolio';
 
 export const Projects: React.FC = () => {
   const { projects } = portfolioData;
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [showAll, setShowAll] = useState(false);
+
+  const INITIAL_COUNT = 4;
+  const visibleProjects = showAll ? projects : projects.slice(0, INITIAL_COUNT);
+  const hasMore = projects.length > INITIAL_COUNT;
+  const remainingCount = projects.length - INITIAL_COUNT;
 
   // Close modal on ESC key
   useEffect(() => {
@@ -39,7 +57,7 @@ export const Projects: React.FC = () => {
       </div>
 
       <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
-        {projects.map((project) => (
+        {visibleProjects.map((project) => (
           <div
             key={project.id}
             onClick={() => setSelectedProject(project)}
@@ -135,6 +153,28 @@ export const Projects: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {/* Show More / Show Less Toggle Button */}
+      {hasMore && (
+        <div className="mt-10 flex justify-center">
+          <button
+            onClick={() => setShowAll(!showAll)}
+            className="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-300 hover:text-white hover:border-neutral-600 hover:bg-neutral-800/80 transition-all text-xs font-mono font-medium shadow-lg shadow-black/40 cursor-pointer"
+          >
+            {showAll ? (
+              <>
+                <span>Tampilkan Lebih Sedikit</span>
+                <ChevronUp className="w-4 h-4 text-neutral-400 group-hover:text-white group-hover:-translate-y-0.5 transition-transform" />
+              </>
+            ) : (
+              <>
+                <span>Lihat Semua Proyek ({remainingCount} Lainnya)</span>
+                <ChevronDown className="w-4 h-4 text-neutral-400 group-hover:text-white group-hover:translate-y-0.5 transition-transform" />
+              </>
+            )}
+          </button>
+        </div>
+      )}
 
       {/* Project Detail Modal */}
       {selectedProject && (
