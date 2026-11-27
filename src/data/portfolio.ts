@@ -240,7 +240,7 @@ export const portfolioData: PortfolioData = {
       ],
       tech: ["JavaScript", "Leaflet.js", "HTML5", "GPX XML", "Tailwind CSS"],
       liveUrl: "https://gpx-share.vercel.app/",
-      githubUrl: "#",
+      githubUrl: "https://github.com/faridahmadnr/GPXShare",
     },
     {
       id: "djaya-roaster",
@@ -278,7 +278,7 @@ export const portfolioData: PortfolioData = {
         "Melakukan porting game loop dan rendering sprite ke HTML5 Canvas untuk live demo interaktif.",
       ],
       tech: ["Java", "Java Swing", "OOP", "HTML5 Canvas", "JavaScript"],
-      liveUrl: "#",
+      liveUrl: "https://ppbo-ayamjago-web.vercel.app/",
       githubUrl: "https://github.com/faridahmadnr/PPBO-AyamJago",
     },
     {
@@ -297,7 +297,7 @@ export const portfolioData: PortfolioData = {
         "Mengadaptasi aset audio dan logika permainan ke web statis untuk deployment instan di Vercel.",
       ],
       tech: ["Java", "Java Swing", "HTML5 Canvas", "JavaScript", "CSS3"],
-      liveUrl: "#",
+      liveUrl: "https://pbo-web.vercel.app/",
       githubUrl: "https://github.com/faridahmadnr/PBO",
     },
     {
@@ -316,7 +316,7 @@ export const portfolioData: PortfolioData = {
         "Membuat versi web HTML5 Canvas beserta integrasi efek suara dan musik latar.",
       ],
       tech: ["Python", "Pygame", "HTML5 Canvas", "JavaScript", "CSS3"],
-      liveUrl: "#",
+      liveUrl: "https://avm-web-mauve.vercel.app/",
       githubUrl: "https://github.com/faridahmadnr/AVM",
     },
     {
@@ -341,7 +341,7 @@ export const portfolioData: PortfolioData = {
         "Coroutines",
         "JavaScript",
       ],
-      liveUrl: "#",
+      liveUrl: "https://contacts-app-web.vercel.app/",
       githubUrl: "https://github.com/faridahmadnr/Contacts-App",
     },
   ],
