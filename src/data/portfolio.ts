@@ -19,6 +19,7 @@ export interface Project {
   githubUrl?: string;
   deckUrl?: string;
   iconName?: string;
+  embedInModal?: boolean;
 }
 
 export interface SkillCategory {
@@ -159,7 +160,7 @@ export const portfolioData: PortfolioData = {
         "React",
         "Tailwind CSS",
       ],
-      liveUrl: "#",
+      liveUrl: "https://smartbroiler.duckdns.org/",
       githubUrl: "#",
     },
     {
@@ -280,6 +281,7 @@ export const portfolioData: PortfolioData = {
       tech: ["Java", "Java Swing", "OOP", "HTML5 Canvas", "JavaScript"],
       liveUrl: "https://ppbo-ayamjago-web.vercel.app/",
       githubUrl: "https://github.com/faridahmadnr/PPBO-AyamJago",
+      embedInModal: true,
     },
     {
       id: "pbo-rocket-dodge",
@@ -299,6 +301,7 @@ export const portfolioData: PortfolioData = {
       tech: ["Java", "Java Swing", "HTML5 Canvas", "JavaScript", "CSS3"],
       liveUrl: "https://pbo-web.vercel.app/",
       githubUrl: "https://github.com/faridahmadnr/PBO",
+      embedInModal: true,
     },
     {
       id: "avm-asteroids",
@@ -318,6 +321,7 @@ export const portfolioData: PortfolioData = {
       tech: ["Python", "Pygame", "HTML5 Canvas", "JavaScript", "CSS3"],
       liveUrl: "https://avm-web-mauve.vercel.app/",
       githubUrl: "https://github.com/faridahmadnr/AVM",
+      embedInModal: true,
     },
     {
       id: "contacts-app-kotlin",
@@ -343,6 +347,7 @@ export const portfolioData: PortfolioData = {
       ],
       liveUrl: "https://contacts-app-web.vercel.app/",
       githubUrl: "https://github.com/faridahmadnr/Contacts-App",
+      embedInModal: true,
     },
   ],
   experiences: [

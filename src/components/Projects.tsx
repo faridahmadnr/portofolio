@@ -18,6 +18,7 @@ import { portfolioData, Project } from '../data/portfolio';
 export const Projects: React.FC = () => {
   const { projects } = portfolioData;
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [demoProject, setDemoProject] = useState<Project | null>(null);
   const [showAll, setShowAll] = useState(false);
 
   const INITIAL_COUNT = 4;
@@ -25,15 +26,19 @@ export const Projects: React.FC = () => {
   const hasMore = projects.length > INITIAL_COUNT;
   const remainingCount = projects.length - INITIAL_COUNT;
 
-  // Close modal on ESC key
+  // Close modal on ESC key (prioritize top-most demo modal)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        setSelectedProject(null);
+        if (demoProject) {
+          setDemoProject(null);
+        } else {
+          setSelectedProject(null);
+        }
       }
     };
 
-    if (selectedProject) {
+    if (selectedProject || demoProject) {
       document.body.style.overflow = 'hidden';
       window.addEventListener('keydown', handleKeyDown);
     } else {
@@ -44,7 +49,7 @@ export const Projects: React.FC = () => {
       document.body.style.overflow = 'unset';
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [selectedProject]);
+  }, [selectedProject, demoProject]);
 
   return (
     <section id="projects" className="py-20 border-t border-neutral-900 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -102,16 +107,28 @@ export const Projects: React.FC = () => {
                     </a>
                   )}
                   {project.liveUrl && (
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 -m-1 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-900 transition-colors"
-                      aria-label="Live Demo"
-                      title="Live Demo"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
+                    project.embedInModal ? (
+                      <button
+                        type="button"
+                        onClick={() => setDemoProject(project)}
+                        className="p-2 -m-1 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-900 transition-colors cursor-pointer"
+                        aria-label="Buka Demo Popup"
+                        title="Buka Demo"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                      </button>
+                    ) : (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 -m-1 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-900 transition-colors"
+                        aria-label="Live Demo"
+                        title="Live Demo"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    )
                   )}
                 </div>
               </div>
@@ -305,15 +322,26 @@ export const Projects: React.FC = () => {
             {/* Action Links */}
             <div className="pt-4 border-t border-neutral-800 flex flex-wrap items-center gap-3">
               {selectedProject.liveUrl && (
-                <a
-                  href={selectedProject.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-white text-neutral-900 font-semibold text-sm hover:bg-neutral-200 transition-colors w-full sm:w-auto"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                  Buka Live Demo
-                </a>
+                selectedProject.embedInModal ? (
+                  <button
+                    type="button"
+                    onClick={() => setDemoProject(selectedProject)}
+                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-white text-neutral-900 font-semibold text-sm hover:bg-neutral-200 transition-colors w-full sm:w-auto cursor-pointer"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    Buka Live Demo
+                  </button>
+                ) : (
+                  <a
+                    href={selectedProject.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-white text-neutral-900 font-semibold text-sm hover:bg-neutral-200 transition-colors w-full sm:w-auto"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    Buka Live Demo
+                  </a>
+                )
               )}
               {selectedProject.deckUrl && (
                 <a
@@ -338,6 +366,63 @@ export const Projects: React.FC = () => {
                 </a>
               )}
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Embedded Live Demo Modal */}
+      {demoProject && demoProject.liveUrl && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Live Demo ${demoProject.title}`}
+          className="fixed inset-0 z-[110] flex items-center justify-center p-2 sm:p-4 md:p-6 bg-black/85 backdrop-blur-md"
+          onClick={() => setDemoProject(null)}
+        >
+          <div
+            className="relative w-full max-w-5xl h-[88dvh] sm:h-[85vh] flex flex-col bg-neutral-950 border border-neutral-800 rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between gap-2 px-3 py-2.5 sm:px-5 sm:py-3.5 border-b border-neutral-800 bg-neutral-950 shrink-0">
+              <div className="min-w-0">
+                {demoProject.subtitle && (
+                  <p className="text-[10px] sm:text-xs font-mono text-neutral-400 truncate">
+                    {demoProject.subtitle}
+                  </p>
+                )}
+                <h3 className="text-sm sm:text-base font-bold text-white truncate">
+                  {demoProject.title}
+                </h3>
+              </div>
+
+              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                <a
+                  href={demoProject.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium bg-neutral-900 border border-neutral-800 text-neutral-300 hover:text-white hover:border-neutral-700 transition-colors"
+                  title="Buka di Tab Baru"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Tab Baru</span>
+                </a>
+                <button
+                  type="button"
+                  onClick={() => setDemoProject(null)}
+                  className="p-1.5 sm:p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-800 focus:outline-none transition-colors cursor-pointer"
+                  aria-label="Tutup demo"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            <iframe
+              src={demoProject.liveUrl}
+              title={demoProject.title}
+              className="w-full flex-1 border-0 bg-black"
+              allow="autoplay; fullscreen"
+            />
           </div>
         </div>
       )}
